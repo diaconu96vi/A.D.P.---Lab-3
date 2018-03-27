@@ -13,9 +13,10 @@ public class Main {
 	public static Semaphore semFree = new Semaphore(5);
 	public static Semaphore semFull = new Semaphore(0);
 	public static Semaphore s = new Semaphore(1);
-	public static final Lock lock = new ReentrantLock();
-    public static final Condition conditieProducatori = lock.newCondition();
-    public static final Condition conditieConsumatori = lock.newCondition();
+	//public static final Lock lock = new ReentrantLock();
+	//public static final Object lock = new Object();
+    public static Object conditieProducatori = new Object();
+    public static Object conditieConsumatori = new Object();
 
 	
 	public static void main(String[] args) {
@@ -29,6 +30,10 @@ public class Main {
 		Producator[] producator = new Producator[threadsNumber];
 		Consumator[] consumator = new Consumator[threadsNumber];
 		
+		System.out.println("Incepe simularea...");
+		System.out.println(" ");
+
+
 		for(i=0;i<threadsNumber;i++) {
 			producator[i] = new Producator();
 			consumator[i] = new Consumator();
@@ -36,10 +41,7 @@ public class Main {
 			producator[i].start();
 			consumator[i].start();
 		}
-		 System.out.println("Incepe simularea...");
-		 System.out.println(" ");
-
-
+		 
 	 for(i=0;i<threadsNumber;i++) {
 		 try {
 			producator[i].join();
