@@ -8,13 +8,13 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.LinkedList;
 
 public class Main {
-	public static int listSize = 10;
+	public static int listSize = 30;
 	public static LinkedList<Integer> list = new LinkedList<Integer>();
 	public static Semaphore semFree = new Semaphore(5);
 	public static Semaphore semFull = new Semaphore(0);
 	public static Semaphore s = new Semaphore(1);
 	//public static final Lock lock = new ReentrantLock();
-	//public static final Object lock = new Object();
+	public static Object lock = new Object();
     public static Object conditieProducatori = new Object();
     public static Object conditieConsumatori = new Object();
 

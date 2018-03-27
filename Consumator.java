@@ -8,32 +8,27 @@ public class Consumator extends Thread {
 		try {
 			while(true) {
 				
-				//Main.semFull.acquire();
-				//Main.s.acquire();
-				
-				//item = Main.list.getFirst();
-				while(Main.list.isEmpty() == true) {
-					System.out.println("Lista este goala");
-					synchronized (Main.conditieConsumatori) {
-					Main.conditieConsumatori.wait();
+					Main.s.acquire();
+					
+					
+					while(Main.list.isEmpty() == true) {
+						System.out.println("Lista este goala");
+						synchronized (Main.conditieConsumatori) {
+							Main.conditieConsumatori.wait();
+						}
 					}
-				}
+					item = Main.list.getFirst();
 					System.out.println("A fost consumat elementul" + Main.list.getFirst());
 					System.out.println(" ");
 					Main.list.remove();
-				//Main.s.release();
-				//Main.semFree.release();
-				
+					
+					Main.s.release();
+	
 				synchronized (Main.conditieProducatori) {
 					Main.conditieProducatori.notify();
-				}
-				
+				}	
 				consume(item);
-				Thread.sleep(300);
-
-				
-
-				
+				Thread.sleep(300);	
 			}
 		}
 		catch (InterruptedException e) {
